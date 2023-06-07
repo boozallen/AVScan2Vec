@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name="avscan2vec"
+authors=[{name = "RJ Joyce", email="joyce_robert2@bah.com"}]
+description="AVScan2Vec: Feature Learning on Antivirus Scan Data for Production-Scale Malware Corpora"
+readme="README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent"
+]
+dependencies = [
+    "numpy",
+    "torch",
+    "py-tlsh",
+    "python-dateutil",
+]
+version="1.0.0"
