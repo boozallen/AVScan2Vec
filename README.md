@@ -14,7 +14,7 @@ TODO
 
 AVScan2Vec can be installed using the following command:
 ```
-pip install pip@git+https://github.com/boozallen/AVScan2Vec
+pip install git+https://github.com/boozallen/AVScan2Vec
 ```
 
 PyTorch's native implementation of DistributedDataParallel is not compatible with AdaptiveLogSoftmaxWithLoss. If you wish to pre-train AVScan2Vec using multiple GPUs, install the Apex extension:
