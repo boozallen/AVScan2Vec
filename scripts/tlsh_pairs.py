@@ -110,8 +110,8 @@ if __name__ == "__main__":
     print("[-] Computing sketches")
     sys.stdout.flush()
     with multiprocessing.Pool(args.num_procs, maxtasksperchild=10) as pool:
-        map_func = functools.partial(get_sketches, sketch_size=args.sketch_size)
-        all_sketches = pool.map(map_func, (zip(md5s, tlshs)))
+        func = functools.partial(get_sketches, sketch_size=args.sketch_size)
+        all_sketches = pool.map(func, (zip(md5s, tlshs)))
     sketch_md5s = {}
     for i in range(len(md5s)):
         sketches = all_sketches[i]
@@ -146,7 +146,6 @@ if __name__ == "__main__":
                 tlsh_2 = md5_tlshs[md5_2]
                 diff = tlsh.diffxlen(tlsh_1, tlsh_2)
                 if diff < args.tlsh_threshold:
-                    print(md5_1, md5_2, tlsh_1, tlsh_2)
                     found_hash = True
                     selected_md5s.add(md5_2)
                     similar_ids.append((md5_ids[md5_1], md5_ids[md5_2]))

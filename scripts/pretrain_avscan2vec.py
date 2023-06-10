@@ -5,7 +5,6 @@ import torch
 import pickle
 import random
 import argparse
-import torch.nn as nn
 import torch.distributed as dist
 import torch.multiprocessing as mp
 from collections import OrderedDict
@@ -122,7 +121,8 @@ def model_parallel(rank, cmd_args, pretrain_model, train_dataset):
 
     # Get train loader
     train_loader = DataLoader(train_dataset, batch_size=cmd_args.batch_size,
-                              shuffle=False, pin_memory=True, num_workers=4,
+                              shuffle=False, pin_memory=True,
+                              num_workers=cmd_args.num_workers,
                               collate_fn=pretrain_collate_fn,
                               sampler=train_sampler)
 
@@ -183,6 +183,8 @@ if __name__ == "__main__":
                         help="Number of epochs")
     parser.add_argument("--devices", default=["cuda:0", "cuda:1"],
                         help="Devices to use")
+    parser.add_argument("--num-workers", default=4, type=int,
+                        help="Number of subprocesses per DataLoader")
     parser.add_argument("-L", default=7, type=int,
                         help="The maximum number of tokens in an AV label")
     parser.add_argument("-D", default=768, type=int,

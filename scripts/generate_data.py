@@ -73,7 +73,7 @@ def get_data(scan_dir, supported_avs):
     supported_avs -- List of AVs that are supported
     """
 
-    # Determine vocabulary from 1,000,000 most common tokens
+    # Determine vocabulary from most common tokens
     token_counts = Counter()
     line_offsets = {}
     id_dates = []
@@ -167,9 +167,11 @@ if __name__ == "__main__":
 
     # Parse command line arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("scan_dir", help="Path to directory containing AV scan reports")
+    parser.add_argument("scan_dir",
+                        help="Path to directory containing AV scan reports")
     parser.add_argument("data_dir", help="Directory to write data to")
-    parser.add_argument("--av-path", default=None, help="Path of text file containing supported AVs")
+    parser.add_argument("--av-path", default=None,
+                        help="Path of text file containing supported AVs")
     args = parser.parse_args()
 
     # Get set of supported AVs
@@ -182,8 +184,9 @@ if __name__ == "__main__":
         supported_avs = read_supported_avs(args.av_path)
     print("[-] Identified {} supported AVs".format(len(supported_avs)))
 
-    # Get token vocab
-    token_vocab, line_offsets, id_dates = get_data(args.scan_dir, supported_avs)
+    # Parse scan reports
+    data = get_data(args.scan_dir, supported_avs)
+    token_vocab, line_offsets, id_dates = data
 
     # Create data directory if it does not exist already
     if not os.path.isdir(args.data_dir):

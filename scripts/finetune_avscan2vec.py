@@ -6,7 +6,6 @@ import pickle
 import random
 import argparse
 import numpy as np
-import torch.nn as nn
 from collections import OrderedDict
 from torch.utils.data import DataLoader, Subset
 from torch.optim.lr_scheduler import ReduceLROnPlateau
@@ -111,7 +110,8 @@ if __name__ == "__main__":
     # Parse commnand line arguments
     parser = argparse.ArgumentParser()
     parser.add_argument("data_dir", help="Path to the data directory")
-    parser.add_argument("pretrain_file", help="Path to the pretrain checkpoint file")
+    parser.add_argument("pretrain_file",
+                        help="Path to the pretrain checkpoint file")
     parser.add_argument("--batch-size", default=100, type=int,
                         help="Batch size")
     parser.add_argument("--num-epochs", default=1, type=int,
@@ -120,8 +120,9 @@ if __name__ == "__main__":
                         help="Path to the checkpoint file")
     parser.add_argument("--num-validation", default=10000, type=int,
                         help="Size of validation set")
-    parser.add_argument("--device", default="cuda",
-                        help="Device to use")
+    parser.add_argument("--device", default="cuda", help="Device to use")
+    parser.add_argument("--num-workers", default=16, type=int,
+                        help="Number of subprocesses per DataLoader")
     parser.add_argument("-L", default=7, type=int,
                         help="The maximum number of tokens in an AV label")
     parser.add_argument("-D", default=768, type=int,
@@ -153,10 +154,12 @@ if __name__ == "__main__":
 
     # Get train, validation, and test loaders
     train_loader = DataLoader(train_dataset, batch_size=args.batch_size,
-                              shuffle=True, pin_memory=True, num_workers=16,
+                              shuffle=True, pin_memory=True,
+                              num_workers=args.num_workers,
                               collate_fn=finetune_collate_fn)
     val_loader = DataLoader(val_dataset, batch_size=args.batch_size,
-                            shuffle=True, pin_memory=True, num_workers=16,
+                            shuffle=True, pin_memory=True,
+                            num_workers=args.num_workers,
                             collate_fn=finetune_collate_fn)
 
     # Define pre-train model
