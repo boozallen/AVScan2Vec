@@ -1,0 +1,5 @@
+checkpoints/checkpoint_shuffle_2023.sav filter=lfs diff=lfs merge=lfs -text
+checkpoints/avs.txt filter=lfs diff=lfs merge=lfs -text
+checkpoints/checkpoint_finetune.sav filter=lfs diff=lfs merge=lfs -text
+checkpoints/checkpoint_pretrain.sav filter=lfs diff=lfs merge=lfs -text
+checkpoints/vocab.txt filter=lfs diff=lfs merge=lfs -text
