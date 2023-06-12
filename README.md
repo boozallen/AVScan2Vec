@@ -1,13 +1,6 @@
 # AVScan2Vec
 
-AVScan2Vec is a sequence-to-sequence autoencoder that can embed antivirus results for a malicious file into a vector. These vectors can then be used for downstream ML tasks such as classification, clustering, and nearest-neighbor lookup. More details about AVScan2Vec are provided in our paper.
-
-TODO
-
-
-If you use AVScan2Vec in your own research, please use this citation:
-
-TODO
+AVScan2Vec is a sequence-to-sequence autoencoder that can embed antivirus results for a malicious file into a vector. These vectors can then be used for downstream ML tasks such as classification, clustering, and nearest-neighbor lookup. 
 
 ## Installation
 
