@@ -1,6 +1,22 @@
 # AVScan2Vec
 
-AVScan2Vec is a sequence-to-sequence autoencoder that can embed antivirus results for a malicious file into a vector. These vectors can then be used for downstream ML tasks such as classification, clustering, and nearest-neighbor lookup. 
+AVScan2Vec is a sequence-to-sequence autoencoder that can embed antivirus results for a malicious file into a vector. These vectors can then be used for downstream ML tasks such as classification, clustering, and nearest-neighbor lookup.
+
+More details about AVScan2Vec are provided in our [paper](https://arxiv.org/abs/2306.06228).
+
+
+If you use AVScan2Vec in your own research, please use this citation:
+
+```
+@misc{joyce2023avscan2vec,
+      title={AVScan2Vec: Feature Learning on Antivirus Scan Data for Production-Scale Malware Corpora},
+      author={Robert J. Joyce and Tirth Patel and Charles Nicholas and Edward Raff},
+      year={2023},
+      eprint={2306.06228},
+      archivePrefix={arXiv},
+      primaryClass={cs.CR}
+}
+```
 
 ## Installation
 
@@ -36,7 +52,7 @@ AVScan2Vec can optionally store vectors in a Qdrant database. To use this option
 If you wish to pre-train AVScan2Vec using multiple GPUs, install the [Apex extension](https://github.com/NVIDIA/apex#installation).
 
 
-## AV Scan data
+## AV scan data
 
 AVScan2Vec learns to embed AV scan reports into vectors. Each AV scan report contains analysis about a malware sample, including labels from different AV products, file hashes, and the date of the scan. Each report should be a JSON object with the following format.
 
@@ -130,7 +146,7 @@ optional arguments:
 If --checkpoint-file is provided, the model will begin training from a warm state using the provided model checkpoint. By default, AVScan2Vec expects to be pretrained in parallel by distributing each batch across multiple GPUs.
 
 
-### Preparing for Fine-tuning
+### Preparing for fine-tuning
 
 AVScan2Vec is fine-tuned on pairs of similar malicious files. It learns that the scan reports of similar files should be embedded into nearby vectors. Similar files are identified using the [Trend Locality Sentitive Hash](https://github.com/trendmicro/tlsh). Files with a TLSH distance less than 30 are considered to be similar. The TLSH authors evaluate this distance threshold to have a false-positive rate of just 0.00181%.
 
